@@ -1,3 +1,8 @@
 Skeleton Firefox extension written with CoffeeScript that gets compiled with a Ruby script
 
+Based on the HelloWorld example from http://kb.mozillazine.org/Getting_started_with_extension_development.
+Updating it to current best practices in Firefox 10, and wired up to use CoffeeScript and jQuery.
+
 .project file is for opening in Aptana
+
+Nickolay gave bash scripts to do the building but I dont know Bash so I wrote a similar thing in Ruby

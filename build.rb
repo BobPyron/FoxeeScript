@@ -22,22 +22,20 @@ def build_coffee(folder_in = "coffee_src", folder_out = "temp")
 end
 
 def build_test_extension(source_dir)
-  app_name     = "cperapera"
-  app_id       = "chineseperakun@gmail.com"
+  app_name     = "helloworld"
+  app_id       = "helloworld@mozilla.doslash.org"
   ff_path      = "C:/Users/jkovalchuk/AppData/Roaming/Mozilla/Firefox/Profiles/du8jap1l.dev"
   
   #clean the extension folder, and rebuild
   chrome_dirs    = %w[content locale skin icons]
-  excluded_paths = %w[temp_dir]
+  excluded_paths = %w[utils]
   
   ext_path 			= File.join(ff_path, "extensions", app_id)
   chrome_path 	= File.join(ext_path, "chrome")
-  defaults_path = File.join(ext_path, "defaults")
   
   FileUtils.rm_rf ext_path if Dir.exists? ext_path
   FileUtils.mkdir ext_path
   FileUtils.mkdir chrome_path
-  FileUtils.mkdir defaults_path
   
   # build the jar chrome file
   jarfile = File.join(chrome_path, "#{app_name}.jar")
@@ -57,6 +55,6 @@ def build_test_extension(source_dir)
   end
 end
 
-output_dir = build_coffee(folder_in="chinese_src")
+output_dir = build_coffee(folder_in="coffee_src")
 build_test_extension(output_dir)
 FileUtils.rm_rf output_dir
