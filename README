@@ -1,0 +1,3 @@
+Skeleton Firefox extension written with CoffeeScript that gets compiled with a Ruby script
+
+.project file is for opening in Aptana
