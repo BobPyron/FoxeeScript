@@ -7,10 +7,18 @@ def build_coffee(folder_in = "coffee_src", folder_out = "temp")
   FileUtils.mkdir folder_out 
   FileUtils.cp_r files, folder_out
   
+  if Dir["/Users/*"].size > 0 
+    is_mac = true
+  end
+
   # compile all the coffee files
   coffee_files = Dir["#{folder_out}/**/*.coffee"]
   coffee_files.each do |file| 
-    result = system ("coffee #{file} #{file[0..-7]}js")
+    if is_mac
+      result = system ("coffee -c #{file}")
+    else
+      result = system ("coffee #{file} #{file[0..-7]}js")
+    end
     if result
       puts "Successfully compiled #{file}, removing original."
       FileUtils.rm file
@@ -24,8 +32,10 @@ end
 def build_test_extension(source_dir)
   app_name     = "helloworld"
   app_id       = "helloworld@mozilla.doslash.org"
-  ff_path      = "C:/Users/jkovalchuk/AppData/Roaming/Mozilla/Firefox/Profiles/du8jap1l.dev"
-  
+  ff_path      = Dir["#{File.join(ENV['HOME'], "/Library/Application Support/Firefox/Profiles")}/*.dev"].first
+  ff_path      = Dir["C:/Users/jkovalchuk/AppData/Roaming/Mozilla/Firefox/Profiles/*.dev"].first if ff_path == nil
+  puts "Sorry couldn't find the Firefox profile folder, exiting..." and return if ff_path == nil
+
   #clean the extension folder, and rebuild
   chrome_dirs    = %w[content locale skin icons]
   excluded_paths = %w[utils]
